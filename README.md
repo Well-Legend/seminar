@@ -2,9 +2,9 @@
 ## Required Dependency and Installation
 
 * make, nodejs, npm
-'''c
+```c
 sudo apt install make nodejs npm
-'''
+```
 
 * geth
    * [Go-ethereum](https://geth.ethereum.org/)
