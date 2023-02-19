@@ -1,4 +1,4 @@
-# block_chain
+# BlockChain
 ## Required Dependency and Installation
 
 * make, nodejs, npm
@@ -9,6 +9,11 @@ sudo apt install make nodejs npm
 * geth
    * [Go-ethereum](https://geth.ethereum.org/)
 
+* web3
+```javascript
+npm install web3
+```
+
 ## Geth
 ### Command Introduce
 1.Initial private chain
@@ -18,8 +23,8 @@ geth --datadir ./data init genesis.json
 ```
 
 
-* ./data is a directory where your block data stored.
-* genesis.json is the information of your first block
+   * ./data is a directory where your block data stored.
+   * genesis.json is the information of your first block
 
 2. Start your private chain
 
@@ -33,3 +38,4 @@ geth --datadir node/private-chain-node2  --allow-insecure-unlock --nodiscover --
 node index.js
 ```
 
+> If you haven't have private chain yet, you can use the command **puppeth** to *construct the private chain*.
