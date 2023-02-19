@@ -10,7 +10,6 @@ const address = '0xc5f7f02e4833f2d8fdda9cd51e720793583b5a7a'; //user
 const password = 'well1314'
 let web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
-
 if(!web3.isConnected()){
     throw new Error('unable to connect to ethereum node at ' + ethereumUri);
 }else{
