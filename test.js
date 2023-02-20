@@ -60,19 +60,19 @@ const abi = contractFile.abi;
 //console.log(abi);
 
 //test function in contract
-const contract = new web3.eth.Contract(abi, '0xba2b6c297b0b2ce1b0837b2301803b858cff62c4');
+const contract = new web3.eth.Contract(abi, '0x7db90c0d6a8F3d534E8416108761771Dc5e07e8b');
 //調用函式所發起的合約
 contract.methods.getNotesLen(address).send({
     from: address,
-    gas: 1000000
+    gas: 100000
     }, function (error, transactionHash) {
       console.log(error, transactionHash)
     }).on('error', function (error) {
-      console.log(error)
+      console.log("Error is: ", error)
     }).on('transactionHash', function (transactionHash) {
-      console.log(transactionHash)
+      console.log("TransacttionHash is: ", transactionHash)
     }).on('receipt', function (receipt) {
-      console.log("YA", receipt) // contains the new contract address
+      console.log("receipt: ", receipt) // contains the new contract address
     });
     console.log("success");
 //查看函式回傳值
