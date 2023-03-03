@@ -30,13 +30,13 @@ web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
 // }
 
 //input the contract
-const source = fs.readFileSync('./contracts/Note.sol', 'utf8');
+const source = fs.readFileSync('./contracts/Car.sol', 'utf8');
 
 //compile the contract
 const input = {
     language: 'Solidity',
     sources:{
-        'Note.sol':{
+        'Car.sol':{
             content: source,
         },
     },
@@ -50,7 +50,7 @@ const input = {
 };
 
 const tempFile = JSON.parse(solc.compile(JSON.stringify(input)));
-const contractFile = tempFile.contracts['Note.sol']['NoteContract'];
+const contractFile = tempFile.contracts['Car.sol']['CE_store'];
 
 //get bin and abi
 const bytecode = contractFile.evm.bytecode.object;

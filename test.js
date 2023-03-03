@@ -31,13 +31,13 @@ web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
 // }
 
 //input the contract
-const source = fs.readFileSync('./contracts/Note.sol', 'utf8');
+const source = fs.readFileSync('./contracts/Car.sol', 'utf8');
 
 //compile the contract
 const input = {
     language: 'Solidity',
     sources:{
-        'Note.sol':{
+        'Car.sol':{
             content: source,
         },
     },
@@ -51,7 +51,7 @@ const input = {
 };
 
 const tempFile = JSON.parse(solc.compile(JSON.stringify(input)));
-const contractFile = tempFile.contracts['Note.sol']['NoteContract'];
+const contractFile = tempFile.contracts['Car.sol']['CE_store'];
 
 //get bin and abi
 const bytecode = contractFile.evm.bytecode.object;
@@ -60,9 +60,9 @@ const abi = contractFile.abi;
 //console.log(abi);
 
 //test function in contract
-const contract = new web3.eth.Contract(abi, '0x7db90c0d6a8F3d534E8416108761771Dc5e07e8b');
+const contract = new web3.eth.Contract(abi, '0xC424864068dF8abAa81b9F66C499b88508d8C91D');
 //調用函式所發起的合約
-contract.methods.getNotesLen(address).send({
+contract.methods.read_data().send({
     from: address,
     gas: 100000
     }, function (error, transactionHash) {
@@ -75,8 +75,11 @@ contract.methods.getNotesLen(address).send({
       console.log("receipt: ", receipt) // contains the new contract address
     });
     console.log("success");
+
 //查看函式回傳值
-contract.methods.getNotesLen(address).call()
+contract.methods.read_data().call().catch((err) => {
+  return;
+ })
 .then(console.log);
 
 // //回調合約
