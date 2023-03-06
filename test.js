@@ -31,13 +31,13 @@ web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
 // }
 
 //input the contract
-const source = fs.readFileSync('./contracts/Car.sol', 'utf8');
+const source = fs.readFileSync('./contracts/Car.sol', 'utf8');//file's relate address
 
 //compile the contract
 const input = {
     language: 'Solidity',
     sources:{
-        'Car.sol':{
+        'Car.sol':{//file name
             content: source,
         },
     },
@@ -51,7 +51,7 @@ const input = {
 };
 
 const tempFile = JSON.parse(solc.compile(JSON.stringify(input)));
-const contractFile = tempFile.contracts['Car.sol']['CE_store'];
+const contractFile = tempFile.contracts['Car.sol']['CE_store'];//[file name][contract name]
 
 //get bin and abi
 const bytecode = contractFile.evm.bytecode.object;
@@ -60,9 +60,9 @@ const abi = contractFile.abi;
 //console.log(abi);
 
 //test function in contract
-const contract = new web3.eth.Contract(abi, '0xC424864068dF8abAa81b9F66C499b88508d8C91D');
+const contract = new web3.eth.Contract(abi, '0xC424864068dF8abAa81b9F66C499b88508d8C91D');//contract address
 //調用函式所發起的合約
-contract.methods.read_data().send({
+contract.methods.read_data().send({//the function which want to test
     from: address,
     gas: 100000
     }, function (error, transactionHash) {
@@ -77,7 +77,7 @@ contract.methods.read_data().send({
     console.log("success");
 
 //查看函式回傳值
-contract.methods.read_data().call().catch((err) => {
+contract.methods.read_data().call().catch((err) => {//function which want to test
   return;
  })
 .then(console.log);
