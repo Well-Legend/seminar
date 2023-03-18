@@ -1,0 +1,67 @@
+.inputStyle {
+  margin-left: 5px;
+  padding: 0px 7px;
+  height: 25px;
+  width: 90%;
+  border-radius: 2px;
+  border: none;
+  background-image: url("https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-512.png");
+  background-position: 97% 50%;
+  background-size: auto 80%;
+  background-repeat: no-repeat;
+}
+
+.app {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #000;
+  box-sizing: border-box;
+}
+
+.add_home {
+  margin-top: 20px;
+  background-color: #000;
+  color: #fff;
+  border: 0;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 15px;
+}
+
+.check {
+  margin-right: 5px;
+  margin-top: 5px;
+  width: 10%;
+  border: 0;
+  background-color: rgb(14, 162, 41);
+  color: #fff;
+  padding: 10px;
+}
+
+.close {
+  margin-top: 5px;
+  width: 10%;
+  border: 0;
+  background-color: rgb(162, 14, 21);
+  color: #fff;
+  padding: 10px;
+}
+
+.item {
+  width: 100%;
+  border-bottom: 1px solid #000;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  /* display: flex; */
+  /* justify-content: space-between; */
+}
+
+.search {
+  margin-top: 10px;
+  margin-right: 5px;
+  width: 10%;
+  border: 0;
+  background-color: rgb(78, 69, 114);
+  color: #fff;
+  padding: 10px;
+}

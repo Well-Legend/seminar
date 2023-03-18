@@ -41,66 +41,98 @@ node index.js
 > If you haven't have private chain yet, you can use the command **puppeth** to *construct the private chain*.
 
 # MongoDB
+## Docker
+1. Uninstall old versions
+
+```c
+sudo apt-get remove docker docker-engine docker.io containerd runc
+```
+
+2. Set up the repository
+
+   * Update the apt package index and install packages to allow apt to use a repository over HTTPS
+
+   ```c
+   sudo apt-get update
+   sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+   ```
+
+   * Add Docker’s official GPG key
+  
+   ```c
+   sudo mkdir -m 0755 -p /etc/apt/keyrings
+   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+   ```
+
+   * Use the following command to set up the repository
+
+   ```c
+   echo \
+   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+   ```
+
+3. Install Docker Engine
+
+   * Update the apt package index
+   
+   ```c
+   sudo apt-get update
+   ```
+
+   * Install the latest version
+
+   ```c
+   sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+   ```
 ## Installation
-1. Open WSL terminal and to the main directory
+1. Install the latest version
 
-```c
-cd ~
-```
-2. Update Ubuntu
+   ```c
+   docker pull mongo:latest
+   ```
 
-```c
-sudo apt update
-```
+2. Check if mongo is installed
 
-3. Import the public key used by the package management system
+   ```c
+   docker images
+   ```
 
-```c
-wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
-```
+3. Create the container
 
-4. Create a list file for MongoDB
+   ```c
+   docker run -itd --name mongo -p 27017:27017 mongo --auth
+   ```
+      * -p 27017:27017：投影容器服務的 27017 端口到主機的 27017 端口。外部可以直接通過主機 ip:27017 訪問 mongo 的服務
+      * --auth：需要密碼才能訪問容器服務
 
-```c
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
-```
+## Command Introduce
 
-5. Reload the local package database
+   * Start Docker
 
-```c
-sudo apt-get update
-```
+   ```c
+   sudo service docker start 
+   docker start bb259ed6c7ecf59310e79e9a6ba9d9421f55f7403f1cb200c726501745b73a29
+   ```
 
-6. Install MongoDB
+   * Start MongoDB
+   
+   ```c
+   docker exec -it mongo bash
+   ```
 
-```c
-sudo apt-get install -y mongodb-org
-```
+   * Connect to database
+   
+   ```c  
+   mongosh
+   ```
 
-7. Whether it downloads succesfully and Check the version
+   * Check MongoDB is working
 
-```c
-mongod --version
-```
-
-8. Create the directory to store data
-
-```c
-mkdir -p ~/data/db
-```
-
-9. Run the Mongo instance
-
-```c
-sudo mongod --dbpath ~/data/db
-```
-
-10. Check the Mongo instance is working
-
-```c
-ps -e | grep 'mongod'
-```
-
-11. Stop the MongoDB Shell
-
-   * Ctrl+C
+   ```c
+   docker exec mongo mongosh --eval "print(version())"
+   ```
