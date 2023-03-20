@@ -18,6 +18,7 @@ const Write_data = (props) => {
     {
         console.log("ID:" + ID)
         console.log("event:" + event)
+        props.submittingStatus.current = true
         props.add(function (prevData) {
             return [
                 {
