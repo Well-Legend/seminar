@@ -13,8 +13,12 @@
   "license": "ISC",
   "dependencies": {
     "fs": "^0.0.1-security",
+    "quary": "^1.0.1",
+    "query": "^0.2.0",
+    "react": "^18.2.0",
+    "react-query": "^3.39.3",
     "solc": "^0.8.17",
-    "web3": "^1.8.2",
+    "web3": "^1.9.0",
     "web3-eth-contract": "^1.8.2",
     "web3-net": "^1.8.2"
   }

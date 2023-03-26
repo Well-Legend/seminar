@@ -2,6 +2,7 @@ const Web3 = require('web3');
 const fs = require('fs');
 const solc = require('solc');
 const Web3EthContract = require('web3-eth-contract');
+const { get } = require('http');
 
 /*
 * connect to ethereum node
@@ -31,7 +32,7 @@ web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
 // }
 
 //input the contract
-const source = fs.readFileSync('./contracts/Car.sol', 'utf8');//file's relate address
+const source = fs.readFileSync('./backend/Car.sol', 'utf8');//file's relate address
 
 //compile the contract
 const input = {
@@ -59,28 +60,57 @@ const bytecode = contractFile.evm.bytecode.object;
 const abi = contractFile.abi;
 //console.log(abi);
 
+const ID = "Well";
+const data = "Data is okay now";
+
 //test function in contract
-const contract = new web3.eth.Contract(abi, '0xC424864068dF8abAa81b9F66C499b88508d8C91D');//contract address
+const contract = new web3.eth.Contract(abi, '0x17438E3a4925ADe9b79cE66A8dd3EbC11c810F0C');//contract address
+
 //調用函式所發起的合約
-contract.methods.read_data().send({//the function which want to test
-    from: address,
-    gas: 100000
-    }, function (error, transactionHash) {
-      console.log(error, transactionHash)
-    }).on('error', function (error) {
-      console.log("Error is: ", error)
-    }).on('transactionHash', function (transactionHash) {
-      console.log("TransacttionHash is: ", transactionHash)
-    }).on('receipt', function (receipt) {
-      console.log("receipt: ", receipt) // contains the new contract address
-    });
-    console.log("success");
+contract.methods.read_data(ID).send({//the function which want to test
+  from: address,
+  gas: 100000
+  }, function (error, transactionHash) {
+    //console.log(error, transactionHash)
+  }).on('error', function (error) {
+    //console.log("Error is: ", error)
+  }).on('transactionHash', function (transactionHash) {
+    //console.log("TransacttionHash is: ", transactionHash)
+  }).on('receipt', function (receipt) {
+    //console.log("receipt: ", receipt) // contains the new contract address
+  });
+  //console.log("success");
 
 //查看函式回傳值
-contract.methods.read_data().call().catch((err) => {//function which want to test
-  return;
- })
+contract.methods.read_data(ID).call().catch((err) => {//function which want to test
+return;
+})
 .then(console.log);
+
+
+
+
+
+// //調用函式所發起的合約
+// contract.methods.read_data(ID).send({//the function which want to test
+//     from: address,
+//     gas: 100000
+//     }, function (error, transactionHash) {
+//       console.log(error, transactionHash)
+//     }).on('error', function (error) {
+//       console.log("Error is: ", error)
+//     }).on('transactionHash', function (transactionHash) {
+//       console.log("TransacttionHash is: ", transactionHash)
+//     }).on('receipt', function (receipt) {
+//       console.log("receipt: ", receipt) // contains the new contract address
+//     });
+//     console.log("success");
+
+// //查看函式回傳值
+// contract.methods.read_data(ID).call().catch((err) => {//function which want to test
+//   return;
+//  })
+// .then(console.log);
 
 // //回調合約
 // web3.eth.getBlock(8, function(error, result){
@@ -89,3 +119,4 @@ contract.methods.read_data().call().catch((err) => {//function which want to tes
 //     else
 //         console.error(error);
 // })
+

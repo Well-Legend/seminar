@@ -30,7 +30,7 @@ web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
 // }
 
 //input the contract
-const source = fs.readFileSync('./contracts/Car.sol', 'utf8');//file's relate address
+const source = fs.readFileSync('./backend/Car.sol', 'utf8');//file's relate address
 
 //compile the contract
 const input = {
@@ -57,6 +57,8 @@ const bytecode = contractFile.evm.bytecode.object;
 //console.log(bytecode);
 const abi = contractFile.abi;
 //console.log(abi);
+
+//console.log('========================');
 
 //deploy contract
 let gasEstimate = web3.eth.estimateGas({data: '0x' + bytecode});

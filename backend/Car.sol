@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 
 contract CE_store{
     string car_ID;
-    mapping(string => string) public critical_data;
+    mapping(string => string[]) public critical_data;
 
     constructor() {
     }
@@ -17,10 +17,10 @@ contract CE_store{
     }
 
     function write_data(string memory data) public{
-        critical_data[car_ID] = data;
+        critical_data[car_ID].push(data);
     } 
 
-    function read_data()public view returns(string memory){
-        return critical_data[car_ID];
+    function read_data(string memory input)public view returns(string[] memory){
+        return critical_data[input];
     }
 }

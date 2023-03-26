@@ -1,43 +1,14 @@
 import { useState, useEffect, useRef } from "react";
-import { API_GET_DATA } from "../../global/constants"
 import "./App.css";
 import Write_data from "./Write.jsx";
 import List from "./Search.jsx";
 
-async function fetchData(setData) {
-  const res = await fetch(API_GET_DATA)
-  const  { data } = await res.json()
-  setData(data)
-}
-
-
-async function fetchSetData(data) {
-  await fetch(API_GET_DATA, {
-    method: "PUT",
-    headers: {
-      'Content-type': 'application/json'
-    },
-    body: JSON.stringify({ data })
-  })
-}
 
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [WriteTrigger, setWriteTrigger] = useState(false);
   const submittingStatus = useRef(false);
-
-  useEffect(() => {
-    if (!submittingStatus.current){
-      return
-    }
-    fetchSetData(data)
-      .then(data => submittingStatus.current = false)
-  }, [data])
-
-  useEffect(() => {
-    fetchData(setData)
-  },[])
 
   useEffect(() => {
     window.alert("新增成功");
