@@ -11,17 +11,41 @@ const List = (props) => {
 
   const [ListTrigger, setListTrigger] = useState(false);
   const [name, setname] = useState("");
+
   function IDChange(e) {
     setname(e.target.value);
   }
 
   const data = {carID: name}
   const get_data  = () => {
-    axios.get('http://localhost:8080/api/read', { params: data })
+    axios.get('http://localhost:8080/api/data', { params: data })
     .then(response => {
       const resultDiv = document.getElementById('result');
-      resultDiv.innerHTML = response.data;
-
+      const data = response.data;
+      const rows = data.split('<br>')
+        .filter(row => row.trim() !== '') // 去除空白的行
+        .map(row => {
+          const [Data, timestamp] = row.split(',');
+          return { Data, timestamp };
+        });
+      resultDiv.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map(row => `
+              <tr>
+                <td>${row.Data}</td>
+                <td>${row.timestamp}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
       console.log('Event getting successfully:', JSON.stringify(response.data));
     })
     .catch(error => {
@@ -42,12 +66,7 @@ const List = (props) => {
         Search
       </button>
       {ListTrigger ? (
-        <div className="list" id="result">
-          {/* {props.listData.map((item) => {
-            const { ID, event, id } = item;
-            return <Item key={id} ID={ID} event={event} />;
-          })} */}
-        </div>
+        <div className="list" id="result"></div>
       ) : (
         ""
       )}

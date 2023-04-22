@@ -10,9 +10,9 @@ const Home = () => {
   const [WriteTrigger, setWriteTrigger] = useState(false);
   const submittingStatus = useRef(false);
 
-  useEffect(() => {
-    window.alert("新增成功");
-  }, [data]);
+  // useEffect(() => {
+  //   window.alert("新增成功");
+  // }, [data]);
 
   const [SearchTrigger, setSearchTrigger] = useState(false);
 

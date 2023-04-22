@@ -3,7 +3,11 @@ pragma solidity ^0.8.17;
 
 contract CE_store{
     string car_ID;
-    mapping(string => string[]) public critical_data;
+    mapping(string => my_data[]) public critical_data;
+    struct my_data{
+        string Data;
+        string timestamp;
+    }
 
     constructor() {
     }
@@ -16,11 +20,11 @@ contract CE_store{
         return car_ID;
     }
 
-    function write_data(string memory data) public{
+    function write_data(my_data memory data) public{
         critical_data[car_ID].push(data);
     } 
 
-    function read_data(string memory input)public view returns(string[] memory){
+    function read_data(string memory input)public view returns(my_data[] memory){
         return critical_data[input];
     }
 }

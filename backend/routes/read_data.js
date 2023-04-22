@@ -42,7 +42,7 @@ const read_in_contract = (ID) => {
     //console.log(abi);
 
     //test function in contract
-    const contract = new web3.eth.Contract(abi, '0x17438E3a4925ADe9b79cE66A8dd3EbC11c810F0C');//contract address
+    const contract = new web3.eth.Contract(abi, '0x9576D073804BF345C6891Bc31D443c46AC4ea8f9');//contract address
     //調用函式所發起的合約
     contract.methods.read_data(ID).send({//the function which want to test
         from: address,
@@ -63,15 +63,12 @@ const read_in_contract = (ID) => {
         return data.join('<br>');
     };
 
-    return contract.methods.read_data(ID).call().then((result) =>{
+    return contract.methods.read_data(ID).call().then((result) =>{//function which want to test
+            console.log(result);
             return process_data(result);
         }).catch((err) => {
             console.error(err);
         });
-    // contract.methods.read_data(ID).call().catch((err) => {//function which want to test
-    //     return;
-    //     })
-    //     .then(console.log);
 }
 
 module.exports = read_in_contract;

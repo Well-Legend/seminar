@@ -40,9 +40,10 @@ const Write_data = (props) => {
   const trans_ID = () => {
     if (ID!=="" && event !=="")
     {
-      axios.post('http://localhost:8080/api/writeID',{ ID: ID })
+      axios.post('http://localhost:8080/api/ID',{ ID: ID })
         .then(response => {
           console.log('ID insert successfully:', response.data);
+          window.alert("新增成功");
         })
         .catch(error => {
           console.error('Error ID inserting:', error);
@@ -53,9 +54,10 @@ const Write_data = (props) => {
   const trans_data  = () => {
     if (ID!=="" && event !=="")
     {
-      axios.post('http://localhost:8080/api/writeData', { event: event})
+      axios.post('http://localhost:8080/api/Data', {event: event})
       .then(response => {
         console.log('Event insert successfully:', response.data);
+        window.alert("新增成功");
       })
       .catch(error => {
         console.error('Error event inserting:', error);

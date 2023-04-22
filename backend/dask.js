@@ -51,19 +51,28 @@ app.use(express.static('./view/dist'));
 // const apiRouter = require('./routes/api.js');
 // app.use("/api", apiRouter);
 
-app.post("/api/writeID", (req, res) => {
+app.post("/api/ID", (req, res) => {
     const data = req.body;
     write_in_ID(data.ID);
     res.send(data.ID);
 })
 
-app.post("/api/writeData", (req, res) => {
-    const data = req.body;
-    write_in_data(data.event);
-    res.send(data.event);
+app.post("/api/Data", (req, res) => {
+    const input_event = req.body;
+    var timestamp = new Date();
+    //var timestampValue = timestamp.getTime();
+    const timestampValue = timestamp.toISOString().substring(0, 19).replace("T", " ");
+    var data = {
+        myData: input_event.event,
+        timestamp: timestampValue
+      };
+    // write_in_data(data.event);
+    // res.send(data.event);
+    write_in_data(data);
+    res.send(data);
 })
 
-app.get("/api/read", (req,res) =>{
+app.get("/api/Data", (req,res) =>{
     const carID = req.query.carID; 
     read_in_contract(carID).then((data) => {
         console.log('Data retrieved from smart contract:', data);

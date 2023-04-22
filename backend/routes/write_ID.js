@@ -43,7 +43,7 @@ const write_in_ID = (data) => {
     //console.log(abi);
 
     //test function in contract
-    const contract = new web3.eth.Contract(abi, '0x17438E3a4925ADe9b79cE66A8dd3EbC11c810F0C');//contract address
+    const contract = new web3.eth.Contract(abi, '0x9576D073804BF345C6891Bc31D443c46AC4ea8f9');//contract address
     //調用函式所發起的合約
     contract.methods.write_ID(data).send({//the function which want to test
         from: address,

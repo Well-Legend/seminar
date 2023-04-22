@@ -15,7 +15,6 @@ const write_in_data = (data) => {
 
     //input the contract
     const source = fs.readFileSync('./Car.sol', 'utf8');//file's relate address
-
     //compile the contract
     const input = {
         language: 'Solidity',
@@ -43,9 +42,14 @@ const write_in_data = (data) => {
     //console.log(abi);
 
     //test function in contract
-    const contract = new web3.eth.Contract(abi, '0x17438E3a4925ADe9b79cE66A8dd3EbC11c810F0C');//contract address
+    const contract = new web3.eth.Contract(abi, '0x9576D073804BF345C6891Bc31D443c46AC4ea8f9');//contract address
 
-    contract.methods.write_data(data).send({//the function which want to test
+    const input_data = {
+        Data: data.myData,
+        timestamp: data.timestamp
+    };
+
+    contract.methods.write_data(input_data).send({//the function which want to test
         from: address,
         gas: 100000
         }, function (error, transactionHash) {
@@ -59,7 +63,7 @@ const write_in_data = (data) => {
         });
         console.log("success");
 
-    contract.methods.write_data(data).call().catch((err) => {//function which want to test
+    contract.methods.write_data(input_data).call().catch((err) => {//function which want to test
         return;
         })
         .then(console.log);
