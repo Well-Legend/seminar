@@ -60,14 +60,10 @@ app.post("/api/ID", (req, res) => {
 app.post("/api/Data", (req, res) => {
     const input_event = req.body;
     var timestamp = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' });
-    //var timestampValue = timestamp.getTime();
-    //const timestampValue = timestamp.toISOString().substring(0, 19).replace("T", " ");
     var data = {
         myData: input_event.event,
         timestamp: timestamp
       };
-    // write_in_data(data.event);
-    // res.send(data.event);
     write_in_data(data);
     res.send(data);
 })
