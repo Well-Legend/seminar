@@ -76,6 +76,14 @@ app.get("/api/Data", (req,res) =>{
     });
 })
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log("App listening on port 8080");
 });
+
+// process.on('SIGINT', () => {
+//     console.log('Received interrupt signal, closing server...');
+//     server.close(() => {
+//       console.log('Server closed.');
+//       process.exit();
+//     });
+//   });

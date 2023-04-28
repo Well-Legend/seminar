@@ -60,10 +60,10 @@ const write_in_ID = (data) => {
         console.log("success");
 
     //查看函式回傳值
-    contract.methods.write_ID(data).call().catch((err) => {//function which want to test
-    return;
-    })
-    .then(console.log);
+    // contract.methods.write_ID(data).call().catch((err) => {//function which want to test
+    // return;
+    // })
+    // .then(console.log);
 }
 
 module.exports = write_in_ID;

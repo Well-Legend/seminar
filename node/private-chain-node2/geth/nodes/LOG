@@ -364,3 +364,72 @@
 14:22:30.279191 version@stat F·[3 1] S·667B[486B 181B] Sc·[0.75 0.00]
 14:22:30.287414 db@janitor F·6 G·0
 14:22:30.287453 db@open done T·13.5514ms
+20:20:44.700550 db@close closing
+20:20:44.700705 db@close done T·155.2µs
+=============== Apr 24, 2023 (CST) ===============
+09:13:01.562944 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+09:13:01.564412 version@stat F·[3 1] S·667B[486B 181B] Sc·[0.75 0.00]
+09:13:01.564456 db@open opening
+09:13:01.564505 journal@recovery F·1
+09:13:01.565459 journal@recovery recovering @87
+09:13:01.569398 memdb@flush created L0@89 N·1 S·162B "loc..seq,v56":"loc..seq,v56"
+09:13:01.570590 version@stat F·[4 1] S·829B[648B 181B] Sc·[1.00 0.00]
+09:13:01.582571 db@janitor F·7 G·0
+09:13:01.582587 db@open done T·18.1228ms
+09:13:01.582688 table@compaction L0·4 -> L1·1 S·829B Q·57
+09:13:01.588706 table@build created L1@92 N·2 S·181B "loc..seq,v56":"version,v1"
+09:13:01.588780 version@stat F·[0 1] S·181B[0B 181B] Sc·[0.00 0.00]
+09:13:01.598802 table@compaction committed F-4 S-648B Ke·0 D·4 T·16.0121ms
+09:13:01.599408 table@remove removed @86
+09:13:01.599469 table@remove removed @83
+09:13:01.599504 table@remove removed @80
+09:13:01.599540 table@remove removed @79
+=============== Apr 24, 2023 (CST) ===============
+17:51:46.767063 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+17:51:46.767450 version@stat F·[0 1] S·181B[0B 181B] Sc·[0.00 0.00]
+17:51:46.767491 db@open opening
+17:51:46.767539 journal@recovery F·1
+17:51:46.768311 journal@recovery recovering @90
+17:51:46.772513 memdb@flush created L0@93 N·1 S·162B "loc..seq,v58":"loc..seq,v58"
+17:51:46.774131 version@stat F·[1 1] S·343B[162B 181B] Sc·[0.25 0.00]
+17:51:46.787604 db@janitor F·5 G·1
+17:51:46.787663 db@janitor removing table-89
+17:51:46.787753 db@open done T·20.2504ms
+=============== Apr 25, 2023 (CST) ===============
+13:24:11.020783 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+13:24:11.021796 version@stat F·[1 1] S·343B[162B 181B] Sc·[0.25 0.00]
+13:24:11.021851 db@open opening
+13:24:11.021892 journal@recovery F·1
+13:24:11.023039 journal@recovery recovering @94
+13:24:11.025558 memdb@flush created L0@96 N·1 S·162B "loc..seq,v60":"loc..seq,v60"
+13:24:11.026862 version@stat F·[2 1] S·505B[324B 181B] Sc·[0.50 0.00]
+13:24:11.034386 db@janitor F·5 G·0
+13:24:11.034443 db@open done T·12.5798ms
+=============== Apr 25, 2023 (CST) ===============
+15:10:06.214032 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+15:10:06.214164 version@stat F·[2 1] S·505B[324B 181B] Sc·[0.50 0.00]
+15:10:06.214195 db@open opening
+15:10:06.214231 journal@recovery F·1
+15:10:06.215036 journal@recovery recovering @97
+15:10:06.217933 memdb@flush created L0@99 N·1 S·162B "loc..seq,v62":"loc..seq,v62"
+15:10:06.218822 version@stat F·[3 1] S·667B[486B 181B] Sc·[0.75 0.00]
+15:10:06.226293 db@janitor F·6 G·0
+15:10:06.226325 db@open done T·12.1229ms
+=============== Apr 25, 2023 (CST) ===============
+18:51:26.032398 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+18:51:26.032795 version@stat F·[3 1] S·667B[486B 181B] Sc·[0.75 0.00]
+18:51:26.032810 db@open opening
+18:51:26.032843 journal@recovery F·1
+18:51:26.033420 journal@recovery recovering @100
+18:51:26.038244 memdb@flush created L0@102 N·1 S·162B "loc..seq,v64":"loc..seq,v64"
+18:51:26.039250 version@stat F·[4 1] S·829B[648B 181B] Sc·[1.00 0.00]
+18:51:26.048437 db@janitor F·7 G·0
+18:51:26.048480 db@open done T·15.6658ms
+18:51:26.048666 table@compaction L0·4 -> L1·1 S·829B Q·65
+18:51:26.052245 table@build created L1@105 N·2 S·181B "loc..seq,v64":"version,v1"
+18:51:26.052297 version@stat F·[0 1] S·181B[0B 181B] Sc·[0.00 0.00]
+18:51:26.055289 table@compaction committed F-4 S-648B Ke·0 D·4 T·6.5304ms
+18:51:26.055573 table@remove removed @99
+18:51:26.055831 table@remove removed @96
+18:51:26.056035 table@remove removed @93
+18:51:26.056141 table@remove removed @92

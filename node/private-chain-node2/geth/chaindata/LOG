@@ -384,3 +384,66 @@
 14:22:30.256935 table@remove removed @83
 14:22:30.256956 table@remove removed @80
 14:22:30.257058 table@remove removed @79
+20:20:44.698663 db@close closing
+20:20:44.699666 db@close done T·1.0994ms
+=============== Apr 24, 2023 (CST) ===============
+09:13:01.405607 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+09:13:01.407774 version@stat F·[0 1] S·2MiB[0B 2MiB] Sc·[0.00 0.02]
+09:13:01.407816 db@open opening
+09:13:01.407867 journal@recovery F·1
+09:13:01.410409 journal@recovery recovering @90
+09:13:01.418554 memdb@flush created L0@93 N·2499 S·183KiB "\x00 \xfd..\xafי,v52951":"\xffA|..U\x1b\x9a,v52886"
+09:13:01.422808 version@stat F·[1 1] S·2MiB[183KiB 2MiB] Sc·[0.25 0.02]
+09:13:01.435007 db@janitor F·5 G·1
+09:13:01.435022 db@janitor removing table-89
+09:13:01.435105 db@open done T·27.2792ms
+=============== Apr 24, 2023 (CST) ===============
+17:51:46.594097 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+17:51:46.594850 version@stat F·[1 1] S·2MiB[183KiB 2MiB] Sc·[0.25 0.02]
+17:51:46.595028 db@open opening
+17:51:46.595189 journal@recovery F·1
+17:51:46.598471 journal@recovery recovering @94
+17:51:46.604074 memdb@flush created L0@96 N·1251 S·65KiB "H\x01\xdb..\x9cc\x8a,v53698":"unc..own,v52961"
+17:51:46.607027 version@stat F·[2 1] S·2MiB[249KiB 2MiB] Sc·[0.50 0.02]
+17:51:46.616151 db@janitor F·5 G·0
+17:51:46.616308 db@open done T·21.2346ms
+=============== Apr 25, 2023 (CST) ===============
+13:24:10.902199 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+13:24:10.902923 version@stat F·[2 1] S·2MiB[249KiB 2MiB] Sc·[0.50 0.02]
+13:24:10.902971 db@open opening
+13:24:10.903022 journal@recovery F·1
+13:24:10.905079 journal@recovery recovering @97
+13:24:10.907711 memdb@flush created L0@99 N·183 S·5KiB "H\x1f\x0e..\u007f\x92\x9e,v54223":"unc..own,v54220"
+13:24:10.934813 version@stat F·[3 1] S·2MiB[255KiB 2MiB] Sc·[0.75 0.02]
+13:24:10.947055 db@janitor F·6 G·0
+13:24:10.947135 db@open done T·44.1304ms
+=============== Apr 25, 2023 (CST) ===============
+15:10:06.131512 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+15:10:06.131632 version@stat F·[3 1] S·2MiB[255KiB 2MiB] Sc·[0.75 0.02]
+15:10:06.131665 db@open opening
+15:10:06.131705 journal@recovery F·1
+15:10:06.133264 journal@recovery recovering @100
+15:10:06.140781 memdb@flush created L0@102 N·1515 S·79KiB "H\x01\x98..\xcav.,v55251":"unc..own,v54404"
+15:10:06.142375 version@stat F·[4 1] S·2MiB[334KiB 2MiB] Sc·[1.00 0.02]
+15:10:06.151694 db@janitor F·7 G·0
+15:10:06.151733 db@open done T·20.0594ms
+15:10:06.151801 table@compaction L0·4 -> L1·1 S·2MiB Q·55911
+15:10:06.194966 table@build created L1@105 N·30576 S·2MiB "\x00 \xfd..\xafי,v52951":"r\x00\x00..[\xf2\xe1,v7757"
+15:10:06.200323 table@build created L1@106 N·3873 S·188KiB "r\x00\x00..\xc9\f\r,v37889":"\xff\x8b\xaa..1\x99V,v2119"
+15:10:06.200385 version@stat F·[0 2] S·2MiB[0B 2MiB] Sc·[0.00 0.02]
+15:10:06.201709 table@compaction committed F-3 S-64KiB Ke·0 D·2458 T·49.8342ms
+15:10:06.201810 table@remove removed @99
+15:10:06.201842 table@remove removed @96
+15:10:06.201876 table@remove removed @93
+15:10:06.202018 table@remove removed @92
+=============== Apr 25, 2023 (CST) ===============
+18:51:25.808115 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+18:51:25.808719 version@stat F·[0 2] S·2MiB[0B 2MiB] Sc·[0.00 0.02]
+18:51:25.808767 db@open opening
+18:51:25.808871 journal@recovery F·1
+18:51:25.825302 journal@recovery recovering @103
+18:51:25.836112 memdb@flush created L0@107 N·1106 S·57KiB "H\x01\xca..0\xd9 ,v56178":"unc..own,v55919"
+18:51:25.853238 version@stat F·[1 2] S·2MiB[57KiB 2MiB] Sc·[0.25 0.02]
+18:51:25.863295 db@janitor F·6 G·1
+18:51:25.863336 db@janitor removing table-102
+18:51:25.863530 db@open done T·54.7385ms
