@@ -1,6 +1,8 @@
 const Web3 = require('web3');
 const fs = require('fs');
 const solc = require('solc');
+// const { resolve } = require('dns');
+// const { rejects } = require('assert');
 
 
 const write_in_data = (data) => {
@@ -9,7 +11,6 @@ const write_in_data = (data) => {
     */ 
     const ethereumUri = 'http://localhost:8545';
     const address = '0xc5f7f02e4833F2d8FddA9cD51E720793583B5A7a'; //user
-    const password = 'well1314'
     let web3 = new Web3();
     web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
 
@@ -42,31 +43,43 @@ const write_in_data = (data) => {
     //console.log(abi);
 
     //test function in contract
-    const contract = new web3.eth.Contract(abi, '0x9576D073804BF345C6891Bc31D443c46AC4ea8f9');//contract address
+    const contract = new web3.eth.Contract(abi, '0x3357a3dC1eC3d6938Ea443Fb4040588EaAc8F26C');//contract address
 
     const input_data = {
         Data: data.myData,
         timestamp: data.timestamp
     };
 
-    contract.methods.write_data(input_data).send({//the function which want to test
-        from: address,
-        gas: 100000
-        }, function (error, transactionHash) {
-        console.log(error, transactionHash)
-        }).on('error', function (error) {
-        console.log("Error is: ", error)
-        }).on('transactionHash', function (transactionHash) {
-        console.log("TransacttionHash is: ", transactionHash)
-        }).on('receipt', function (receipt) {
-        console.log("receipt: ", receipt) // contains the new contract address
-        });
-        console.log("success");
+    function send_transaction(){
+        return contract.methods.write_data(input_data).send({//the function which want to test
+            from: address,
+            gas: 100000
+            }).on('error', function (error) {
+                console.log("Error is: ", error)
+            }).on('transactionHash', function (transactionHash) {
+                console.log("TransacttionHash is: ", transactionHash)
+            }).on('receipt', function (receipt) {
+                console.log("receipt: ", receipt) // contains the new contract address
+            });
+            //console.log("success");
+    }
 
-    contract.methods.write_data(input_data).call().catch((err) => {//function which want to test
-        return;
-        })
-        .then(console.log);
+    async function transaction_done(receipt){
+        if(receipt.status){
+            console.log('Transaction confirmed!');
+            contract.methods.write_data(input_data).call().catch((err) => {//function which want to test
+                return;
+            })
+            .then(console.log);
+        }
+        else{
+            console.error('Transaction failed!');
+        }
+    }
+        
+    return send_transaction().then((receipt) => {
+        return transaction_done(receipt);
+    });
 }
 
 module.exports = write_in_data;

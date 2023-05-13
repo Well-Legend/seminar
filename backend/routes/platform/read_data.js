@@ -8,7 +8,7 @@ const read_in_contract = (ID) => {
     */ 
     const ethereumUri = 'http://localhost:8545';
     const address = '0xc5f7f02e4833F2d8FddA9cD51E720793583B5A7a'; //user
-    const password = 'well1314'
+
     let web3 = new Web3();
     web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
 
@@ -42,21 +42,7 @@ const read_in_contract = (ID) => {
     //console.log(abi);
 
     //test function in contract
-    const contract = new web3.eth.Contract(abi, '0x9576D073804BF345C6891Bc31D443c46AC4ea8f9');//contract address
-    //調用函式所發起的合約
-    contract.methods.read_data(ID).send({//the function which want to test
-        from: address,
-        gas: 100000
-        }, function (error, transactionHash) {
-        console.log(error, transactionHash)
-        }).on('error', function (error) {
-        console.log("Error is: ", error)
-        }).on('transactionHash', function (transactionHash) {
-        console.log("TransacttionHash is: ", transactionHash)
-        }).on('receipt', function (receipt) {
-        console.log("receipt: ", receipt) // contains the new contract address
-        });
-        console.log("success");
+    const contract = new web3.eth.Contract(abi, '0x3357a3dC1eC3d6938Ea443Fb4040588EaAc8F26C');//contract address
 
     //查看函式回傳值
     function process_data(data) {

@@ -1,4 +1,5 @@
 # 啟動後端程式
+cd ..
 cd backend
 node dask.js &
 cd ..
