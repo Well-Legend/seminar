@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const mqtt = require('mqtt');
 
 //Routes
 const write_in_data = require("./routes/platform/write_data.js");
@@ -70,9 +71,22 @@ app.post("/api/Data", (req, res) => {
     res.send(data);
 })
 
-const task_queue = [];
-let task_count = 0;
-const MAX_TASK_COUNT = 40;
+const mqttClient = mqtt.connect();
+
+mqttClient.on('connect', function () {
+    console.log('Connected to MQTT broker');
+
+    mqttClient.subscribe('car', function (error) {
+        if (error) {
+            console.error('Failed to subscribe to MQTT topic', error);
+        } else {
+            console.log('Subscribed to MQTT topic');
+        }
+    });
+});
+
+const data_queue = [];
+let processing = false;
 
 app.post("/api/car/Data", async(req, res) =>{
     const input = req.body;
@@ -80,11 +94,33 @@ app.post("/api/car/Data", async(req, res) =>{
     var data = {
         myData: input.event,
         timestamp: timestamp
-      };
+    };
+    var record = {
+        ID: input.ID,
+        data: data
+    };
+
+    data_queue.push(record);
+
+    //Public data to MQTT for each transaction
+    mqttClient.publish('car', 'Next transaction', JSON.stringify(record), (error) => {
+        if(error) {
+            console.error('Failed to publish data to MQTT', error);
+        }
+        else{
+            console.log('Data published to MQTT');
+        //    post_success();
+        }
+    });
+
+    res.send({
+        ID: input.ID,
+        data: data
+    });
 
     // function send_ID(){
     //     return new Promise((resolve, reject) =>{
-    //         write_car_ID(input.ID).then(() => {
+    //         write_car_ID().then(() => {
     //             resolve("ID輸入成功");
     //         }).catch((error) => {
     //             reject(error);
@@ -94,7 +130,7 @@ app.post("/api/car/Data", async(req, res) =>{
 
     // function send_data(){
     //     return new Promise((resolve, reject) =>{
-    //         write_car_data(data).then(() =>{
+    //         write_car_data().then(() =>{
     //             resolve("event輸入成功");
     //         }).catch((error) => {
     //             reject(error);
@@ -112,31 +148,38 @@ app.post("/api/car/Data", async(req, res) =>{
     //         data: data
     //     });
     // }
+})
 
-    // post_success();
+//Subscribe to MQTT 以處理下一筆交易
+mqttClient.on('message', function (topic, message) {
+    if (message.toString() === 'Next transaction') {
+      process_next_transaction();
+    }
+});
 
-    if (task_count >= MAX_TASK_COUNT){
-        res.status(429).send('Too Many Request');
+function process_next_transaction(){
+    if(data_queue.length === 0 || processing){
         return;
     }
 
-    task_queue.push(() => write_car_ID(input.ID));
-    task_queue.push(() => write_car_data(data));
-    task_count += 2;
+    processing = true;
 
-    if(task_queue.length >= 2){
-        await task_queue[0]();
-        await task_queue[1]();
-        task_queue.splice(0, 2);
-        task_count -= 2;
-    }
+    //取出下一筆資料
+    const work = data_queue.shift();
 
-    // console.log(task_queue.slice());
-    res.send({
-        ID: input.ID,
-        data: data
+    write_car_ID(work.ID).then(() => {
+        return write_car_data(work.data);
+    })
+    .then(() => {
+        processing = false;
+        process_next_transaction();
+    })
+    .catch((error) => {
+        console.error('Transaction: ', work.ID, work.data, 'Failed:', error);
+        processing = false;
+        process_next_transaction();
     });
-})
+}
 
 app.get("/api/Data", (req,res) =>{
     const carID = req.query.carID; 
@@ -146,6 +189,6 @@ app.get("/api/Data", (req,res) =>{
     });
 })
 
-const server = app.listen(port, () => {
-    console.log("App listening on port 8080");
+app.listen(port, () => {
+    console.log(`App listening on port ${port}`);
 });

@@ -1,11 +1,9 @@
 const Web3 = require('web3');
 const fs = require('fs');
 const solc = require('solc');
-// const { resolve } = require('dns');
-// const { rejects } = require('assert');
+const mqtt = require('mqtt');
 
-
-const write_in_ID = (data) => {
+const write_in_ID = (ID) => {
     /*
     * connect to ethereum node
     */ 
@@ -44,11 +42,96 @@ const write_in_ID = (data) => {
     //console.log(abi);
 
     //test function in contract
-    const contract = new web3.eth.Contract(abi, '0x3357a3dC1eC3d6938Ea443Fb4040588EaAc8F26C');//contract address
+    const contract = new web3.eth.Contract(abi, '0x3192f72C332D7645542e0822Dc7E59B21E2121c3');//contract address
+
+    // const mqtt_client = mqtt.connect();
+
+    // mqtt_client.on('connect', function(){
+    //     //Subscribe to MQTT topic
+    //     mqtt_client.subscribe('car', (error) => {
+    //         if (error) {
+    //             console.error('Failed to subscribe to MQTT topic', error);
+    //         } else {
+    //             console.log('Subscribed to MQTT topic');
+    //         }
+    //     });
+    // });
+
+    // mqtt_client.on('message', function(topic, message){
+    //     // Receive MQTT message and execute transaction logic
+    //     const received_data = JSON.parse(message.toString());
+
+    //     // Check if received data matches the expected format
+    //     if(received_data.ID === ID){
+    //         send_transaction(received_data.ID).then((receipt) => {
+    //             transaction_done(receipt);
+    //         })
+    //         .catch((error) => {
+    //             console.error('Transaction failed: ', error);
+    //         });
+    //     }
+    //     else{
+    //         console.error('Invalid data format:', received_data.ID);
+    //     }
+    // });
+
+    // function send_transaction(ID){
+    //     return contract.methods.write_ID(ID).send({
+    //         from: address,
+    //         gas: 100000,
+    //     });
+    // }
+
+    // function transaction_done(receipt){
+    //     if(receipt.status){
+    //         console.log('Transaction confirmed!');
+
+    //         //查看函式回傳值
+    //         contract.methods.write_ID(ID).call().catch((err) => {//function which want to test
+    //             console.error('Error retrieving data:', err);
+    //         })
+    //         .then(console.log);
+    //     }
+    //     else{
+    //         console.error('Transaction failed!');
+    //     }
+
+    //     // Publish message to MQTT to trigger next transaction
+    //     mqtt_client.publish('car', 'Transaction completed', (error) => {
+    //         if(error){
+    //             console.error('Failed to publish data to MQTT', error);
+    //         }
+    //         else{
+    //             console.log('Transaction completed. Data published to MQTT');
+    //         }
+    //     });
+    // }
+
+    // return new Promise((resolve, reject) => {
+    //     // Connect to MQTT broker
+    //     mqtt_client.on('connect', () =>{
+    //         mqtt_client.subscribe('car', (error) => {
+    //             if(error){
+    //                 console.error('Failed to subscribe to MQTT topic', error);
+    //                 reject(error);
+    //             }
+    //             else{
+    //                 console.log('Subscribed to MQTT topic');
+    //                 resolve();
+    //             }
+    //         });
+    //     });
+
+    //     // Handle MQTT connection errors
+    //     mqtt_client.on('error', (error) => {
+    //         console.error('MQTT connection error:', error);
+    //         reject(error);
+    //     });
+    // });
 
     function send_transaction(){
         //調用函式所發起的合約
-        return contract.methods.write_ID(data).send({//the function which want to test
+        return contract.methods.write_ID(ID).send({//the function which want to test
             from: address,
             gas: 100000
             }).on('error', function (error) {
@@ -66,7 +149,7 @@ const write_in_ID = (data) => {
         if(receipt.status){
             console.log('Transaction confirmed!');
             //查看函式回傳值
-            contract.methods.write_ID(data).call().catch((err) => {//function which want to test
+            contract.methods.write_ID(ID).call().catch((err) => {//function which want to test
                 return;
             })
             .then(console.log);

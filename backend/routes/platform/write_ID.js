@@ -44,7 +44,7 @@ const write_in_ID = (data) => {
     //console.log(abi);
 
     //test function in contract
-    const contract = new web3.eth.Contract(abi, '0x3357a3dC1eC3d6938Ea443Fb4040588EaAc8F26C');//contract address
+    const contract = new web3.eth.Contract(abi, '0x3192f72C332D7645542e0822Dc7E59B21E2121c3');//contract address
 
     function send_transaction(){
         //調用函式所發起的合約
