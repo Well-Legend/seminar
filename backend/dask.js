@@ -117,37 +117,6 @@ app.post("/api/car/Data", async(req, res) =>{
         ID: input.ID,
         data: data
     });
-
-    // function send_ID(){
-    //     return new Promise((resolve, reject) =>{
-    //         write_car_ID().then(() => {
-    //             resolve("ID輸入成功");
-    //         }).catch((error) => {
-    //             reject(error);
-    //         });
-    //     });
-    // }
-
-    // function send_data(){
-    //     return new Promise((resolve, reject) =>{
-    //         write_car_data().then(() =>{
-    //             resolve("event輸入成功");
-    //         }).catch((error) => {
-    //             reject(error);
-    //         });
-
-    //     });
-    // }
-    // async function post_success(){
-    //     let post_ID = await send_ID();
-    //     console.log(post_ID);
-    //     let post_data = await send_data();
-    //     console.log(post_data);
-    //     res.send({
-    //         ID: input.ID,
-    //         data: data
-    //     });
-    // }
 })
 
 //Subscribe to MQTT 以處理下一筆交易

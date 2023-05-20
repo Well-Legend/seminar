@@ -43,19 +43,7 @@ const read_in_contract = (ID) => {
 
     //test function in contract
     const contract = new web3.eth.Contract(abi, '0x3192f72C332D7645542e0822Dc7E59B21E2121c3');//contract address
-
-    // contract.methods.read_data(ID).send({//the function which want to test
-    //         from: address,
-    //         gas: 100000
-    //         }).on('error', function (error) {
-    //             console.log("Error is: ", error)
-    //         }).on('transactionHash', function (transactionHash) {
-    //             console.log("TransacttionHash is: ", transactionHash)
-    //         }).on('receipt', function (receipt) {
-    //             console.log("receipt: ", receipt) // contains the new contract address
-    //         });
-    //         //console.log("success");
-
+    
     //查看函式回傳值
     function process_data(data) {
         return data.join('<br>');
