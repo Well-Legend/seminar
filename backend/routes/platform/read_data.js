@@ -42,14 +42,14 @@ const read_in_contract = (ID) => {
     //console.log(abi);
 
     //test function in contract
-    const contract = new web3.eth.Contract(abi, '0x3192f72C332D7645542e0822Dc7E59B21E2121c3');//contract address
-    
+    const contract = new web3.eth.Contract(abi, '0xe8732E3AF02018E93Ce61807De3993a25Df5BA31');//contract address
+
     //查看函式回傳值
     function process_data(data) {
         return data.join('<br>');
     };
 
-    return contract.methods.read_data(ID).call({ gas: 200000 }).then((result) =>{//function which want to test
+    return contract.methods.read_data(ID).call({ gas: 2000000 }).then((result) =>{//function which want to test
             console.log(result);
             return process_data(result);
         }).catch((err) => {
