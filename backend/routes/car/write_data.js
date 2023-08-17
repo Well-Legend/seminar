@@ -3,7 +3,7 @@ const fs = require('fs');
 const solc = require('solc');
 const mqtt = require('mqtt');
 
-const write_in_data = (data) => {
+const write_in_data = (ID, data) => {
     /*
     * connect to ethereum node
     */ 
@@ -13,7 +13,7 @@ const write_in_data = (data) => {
     web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
 
     //input the contract
-    const source = fs.readFileSync('./Car.sol', 'utf8');//file's relate address
+    const source = fs.readFileSync(__dirname + '/../../Car.sol', 'utf8');//file's relate address
     //compile the contract
     const input = {
         language: 'Solidity',
@@ -41,7 +41,7 @@ const write_in_data = (data) => {
     //console.log(abi);
 
     //test function in contract
-    const contract = new web3.eth.Contract(abi, '0xe8732E3AF02018E93Ce61807De3993a25Df5BA31');//contract address
+    const contract = new web3.eth.Contract(abi, '0x394c097625C5Afb98969322E2d2AeA3A36cA690A');//contract address
 
     const input_data = {
         Data: data.myData,
@@ -49,7 +49,7 @@ const write_in_data = (data) => {
     };
 
     function send_transaction(){
-        return contract.methods.write_data(input_data).send({//the function which want to test
+        return contract.methods.write_data(ID, input_data).send({//the function which want to test
             from: address,
             gas: 1000000
             }).on('error', function (error) {
@@ -64,11 +64,10 @@ const write_in_data = (data) => {
 
     async function transaction_done(receipt){
         if(receipt.status){
-            console.log('Transaction confirmed!');
-            contract.methods.write_data(input_data).call().catch((err) => {//function which want to test
+            contract.methods.write_data(ID, input_data).call().catch((err) => {//function which want to test
                 return;
             })
-            .then(console.log);
+            .then(console.log('Transaction confirmed!'));
         }
         else{
             console.error('Transaction failed!');

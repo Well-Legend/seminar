@@ -37,36 +37,38 @@ const Write_data = (props) => {
     props.setWriteTrigger(false);
   }
 
-  const trans_ID = () => {
-    if (ID!=="" && event !=="")
-    {
-      axios.post('http://localhost:8080/api/ID',{ ID: ID })
-        .then(response => {
-          console.log('ID insert successfully:', response.data);
-          window.alert("新增成功");
-        })
-        .catch(error => {
-          console.error('Error ID inserting:', error);
-        });
-    }
-  } 
+  // const trans_ID = () => {
+  //   if (ID!=="" && event !=="")
+  //   {
+  //     axios.post('http://localhost:8080/api/ID',{ ID: ID })
+  //       .then(response => {
+  //         console.log('ID insert successfully:', response.data);
+  //         window.alert("新增成功");
+  //       })
+  //       .catch(error => {
+  //         console.error('Error ID inserting:', error);
+  //       });
+  //   }
+  // } 
 
   const trans_data  = () => {
     if (ID!=="" && event !=="")
     {
-      axios.post('http://localhost:8080/api/Data', {event: event})
+      axios.post('http://localhost:8080/api/Data', {ID: ID, event: event})
       .then(response => {
-        console.log('Event insert successfully:', response.data);
+        console.log('ID insert successfully:', response.data.ID);
+        console.log('Event insert successfully:', response.data.data);
         window.alert("新增成功");
       })
       .catch(error => {
+        console.error('Error ID inserting:', error);
         console.error('Error event inserting:', error);
       });
     }
   }
 
   const add_all = () => {
-    trans_ID();
+    // trans_ID();
     trans_data();
     // addItem();
   }

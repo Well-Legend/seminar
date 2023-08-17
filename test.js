@@ -61,25 +61,28 @@ const abi = contractFile.abi;
 //console.log(abi);
 
 const ID = "Well";
-const data = "Data is okay now";
+const data = {
+  Data: "Data is okay now",
+  timestamp: "此時此刻"
+};
 
 //test function in contract
-const contract = new web3.eth.Contract(abi, '0x17438E3a4925ADe9b79cE66A8dd3EbC11c810F0C');//contract address
+const contract = new web3.eth.Contract(abi, '0x394c097625C5Afb98969322E2d2AeA3A36cA690A');//contract address
 
 //調用函式所發起的合約
-contract.methods.read_data(ID).send({//the function which want to test
+contract.methods.write_data(ID, data).send({//the function which want to test
   from: address,
   gas: 100000
   }, function (error, transactionHash) {
     //console.log(error, transactionHash)
   }).on('error', function (error) {
-    //console.log("Error is: ", error)
+    console.log("Error is: ", error)
   }).on('transactionHash', function (transactionHash) {
-    //console.log("TransacttionHash is: ", transactionHash)
+    console.log("TransacttionHash is: ", transactionHash)
   }).on('receipt', function (receipt) {
-    //console.log("receipt: ", receipt) // contains the new contract address
+    console.log("receipt: ", receipt) // contains the new contract address
   });
-  //console.log("success");
+  console.log("success");
 
 //查看函式回傳值
 contract.methods.read_data(ID).call().catch((err) => {//function which want to test

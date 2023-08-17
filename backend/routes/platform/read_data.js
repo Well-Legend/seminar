@@ -42,7 +42,7 @@ const read_in_contract = (ID) => {
     //console.log(abi);
 
     //test function in contract
-    const contract = new web3.eth.Contract(abi, '0xe8732E3AF02018E93Ce61807De3993a25Df5BA31');//contract address
+    const contract = new web3.eth.Contract(abi, '0x394c097625C5Afb98969322E2d2AeA3A36cA690A');//contract address
 
     //查看函式回傳值
     function process_data(data) {

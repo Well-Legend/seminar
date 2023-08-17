@@ -12,16 +12,16 @@ contract CE_store{
     constructor() {
     }
     
-    function write_ID(string memory input)  public {
-        car_ID = input;
-    }
+    // function write_ID(string memory input)  public {
+    //     car_ID = input;
+    // }
 
     function read_ID() public view returns(string memory){
         return car_ID;
     }
 
-    function write_data(my_data memory data) public{
-        critical_data[car_ID].push(data);
+    function write_data(string memory input, my_data memory data) public{
+        critical_data[input].push(data);
     } 
 
     function read_data(string memory input)public view returns(my_data[] memory){

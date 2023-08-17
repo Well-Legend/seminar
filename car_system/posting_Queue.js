@@ -9,7 +9,7 @@ data.push(new_data);
 
 
 const requests = data.map(item =>
-  axios.post('http://localhost:8080/api/car/Data/Queue', item)
+  axios.post('http://localhost:8080/api/car/Data', item)
   .then(response => {
     console.log('ID insert successfully:', response.data.ID);
     console.log('Event insert successfully:', response.data.data);

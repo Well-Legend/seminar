@@ -5,7 +5,7 @@ const solc = require('solc');
 // const { rejects } = require('assert');
 
 
-const write_in_data = (data) => {
+const write_in_data = (ID, data) => {
     /*
     * connect to ethereum node
     */ 
@@ -43,7 +43,7 @@ const write_in_data = (data) => {
     //console.log(abi);
 
     //test function in contract
-    const contract = new web3.eth.Contract(abi, '0xe8732E3AF02018E93Ce61807De3993a25Df5BA31');//contract address
+    const contract = new web3.eth.Contract(abi, '0x394c097625C5Afb98969322E2d2AeA3A36cA690A');//contract address
 
     const input_data = {
         Data: data.myData,
@@ -51,7 +51,7 @@ const write_in_data = (data) => {
     };
 
     function send_transaction(){
-        return contract.methods.write_data(input_data).send({//the function which want to test
+        return contract.methods.write_data(ID, input_data).send({//the function which want to test
             from: address,
             gas: 100000
             }).on('error', function (error) {
@@ -67,7 +67,7 @@ const write_in_data = (data) => {
     async function next_step(receipt){
         if(receipt.status){
             console.log('Transaction confirmed!');
-            contract.methods.write_data(input_data).call().catch((err) => {//function which want to test
+            contract.methods.write_data(ID, input_data).call().catch((err) => {//function which want to test
                 return;
             })
             .then(console.log);

@@ -46,7 +46,27 @@ const write_in_contract = ({ID, event}) => {
     //test function in contract
     const contract = new web3.eth.Contract(abi, '0xC424864068dF8abAa81b9F66C499b88508d8C91D');//contract address
     //調用函式所發起的合約
-    contract.methods.Write_ID({ID}).send({//the function which want to test
+    // contract.methods.Write_ID({ID}).send({//the function which want to test
+    //     from: address,
+    //     gas: 100000
+    //     }, function (error, transactionHash) {
+    //     console.log(error, transactionHash)
+    //     }).on('error', function (error) {
+    //     console.log("Error is: ", error)
+    //     }).on('transactionHash', function (transactionHash) {
+    //     console.log("TransacttionHash is: ", transactionHash)
+    //     }).on('receipt', function (receipt) {
+    //     console.log("receipt: ", receipt) // contains the new contract address
+    //     });
+    //     console.log("success");
+
+    // //查看函式回傳值
+    // contract.methods.Write_ID({ID}).call().catch((err) => {//function which want to test
+    // return;
+    // })
+    // .then(console.log);
+
+    contract.methods.Write_data({ID, event}).send({//the function which want to test
         from: address,
         gas: 100000
         }, function (error, transactionHash) {
@@ -60,27 +80,7 @@ const write_in_contract = ({ID, event}) => {
         });
         console.log("success");
 
-    //查看函式回傳值
-    contract.methods.Write_ID({ID}).call().catch((err) => {//function which want to test
-    return;
-    })
-    .then(console.log);
-
-    contract.methods.Write_data({event}).send({//the function which want to test
-        from: address,
-        gas: 100000
-        }, function (error, transactionHash) {
-        console.log(error, transactionHash)
-        }).on('error', function (error) {
-        console.log("Error is: ", error)
-        }).on('transactionHash', function (transactionHash) {
-        console.log("TransacttionHash is: ", transactionHash)
-        }).on('receipt', function (receipt) {
-        console.log("receipt: ", receipt) // contains the new contract address
-        });
-        console.log("success");
-
-    contract.methods.Write_data({event}).call().catch((err) => {//function which want to test
+    contract.methods.Write_data({ID, event}).call().catch((err) => {//function which want to test
         return;
         })
         .then(console.log);
