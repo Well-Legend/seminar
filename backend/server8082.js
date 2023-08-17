@@ -25,14 +25,16 @@ app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(express.static('./view/dist'));
 
-app.post("/api/car/Data/kafka2", async(res, req) =>{
+app.post("/api/car/Data/kafka2", async(req, res) =>{
     const record = req.body;
+    console.log('8082: ', record);
+    const kafkaMessage = {
+        value: JSON.stringify(record)
+    }
     await producer.connect()
     await producer.send({
       topic: 'carSystem',
-      messages: [
-         record 
-      ],
+      messages: [kafkaMessage]
     })
     
     await producer.disconnect()

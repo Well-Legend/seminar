@@ -28,12 +28,13 @@ app.use(express.static('./view/dist'));
 app.post("/api/car/Data/kafka1", async(req, res) =>{
     const record = req.body;
     console.log('8081: ', record);
+    const kafkaMessage = {
+        value: JSON.stringify(record)
+    }
     await producer.connect()
     await producer.send({
       topic: 'carSystem',
-      messages: [
-         record 
-      ],
+      messages: [kafkaMessage]
     })
     
     await producer.disconnect()
