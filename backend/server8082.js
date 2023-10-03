@@ -25,20 +25,34 @@ app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(express.static('./view/dist'));
 
+let cnt = 1;
 app.post("/api/car/Data/kafka2", async(req, res) =>{
+    const partition = cnt%5;
+    console.log('8082Partition: ', partition);
     const record = req.body;
     console.log('8082: ', record);
+    const key = partition.toString();
+
     const kafkaMessage = {
-        value: JSON.stringify(record)
+        key: key, 
+        value: JSON.stringify(record),
+        partition: partition
     }
-    await producer.connect()
+
+    await producer.connect();
     await producer.send({
       topic: 'carSystem',
       messages: [kafkaMessage]
     })
-    
-    await producer.disconnect()
-    res.send('done');
+
+    cnt+=3;
+    if(cnt>=300)
+    {
+        cnt-=300;
+    }
+
+    // await producer.disconnect();
+    res.send(record);
 })
 
 app.listen(port, () => {

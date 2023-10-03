@@ -2,18 +2,24 @@ import http from 'k6/http';
 import { sleep } from 'k6';
 
 export let options = {
-    vus: 5000, // 虛擬使用者數量
-    iterations: 20000, // 每個使用者發送次數
-    // duration: '20m',//總共持續時間
+    scenarios: {
+        contacts: {
+            executor: 'per-vu-iterations',
+            vus: 20,
+            iterations: 50,
+        }
+    }
 };
 
 let i=0;
 export default function () {
+    var timestamp = Date.now();
     const new_data = {
         ID: `well, ${i}`,
         event: `早安現在星期一, ${i}`,
+        timestamp: timestamp
     };    
-
+    
     const response = http.post('http://localhost:8080/api/car/Data/QoS0', JSON.stringify(new_data), {
         headers: {
             'Content-Type': 'application/json',

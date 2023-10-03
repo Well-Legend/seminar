@@ -47,19 +47,22 @@ const write_in_data = (ID, data) => {
         Data: data.myData,
         timestamp: data.timestamp
     };
-
+    
     function send_transaction(){
         return contract.methods.write_data(ID, input_data).send({//the function which want to test
             from: address,
             gas: 1000000
             }).on('error', function (error) {
-                console.log("Error is: ", error)
+                console.log("Error is: ", error);
             }).on('transactionHash', function (transactionHash) {
-                console.log("TransacttionHash is: ", transactionHash)
+                console.log("TransacttionHash is: ", transactionHash);
             }).on('receipt', function (receipt) {
-                console.log("receipt: ", receipt) // contains the new contract address
+                //test time
+                // var timestamp = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' });
+                var timestamp = Date.now();
+                console.log("Transaction Done Time: ", timestamp);   
+                console.log("receipt: ", receipt.transactionHash) // contains the new contract address
             });
-            //console.log("success");
     }
 
     async function transaction_done(receipt){

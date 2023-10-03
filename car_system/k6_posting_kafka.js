@@ -2,16 +2,22 @@ import http from 'k6/http';
 import { sleep } from 'k6';
 
 export let options = {
-  vus: 1, // 虚拟用户数
-  iterations: 1, // 每个用户发送次数
-  duration: '60m', // 总共持续时间
+    scenarios: {
+        contacts: {
+            executor: 'per-vu-iterations',
+            vus: 100,
+            iterations: 50,
+        }
+    }
 };
 
 let i=0;
 export default function () {
+    var timestamp = Date.now();
     const new_data = {
         ID: `well, ${i}`,
         event: `早安現在星期一, ${i}`,
+        timestamp: timestamp
     };   
     let response = null; 
     // if(i==1){

@@ -1,7 +1,12 @@
 const mqtt = require('mqtt');
 const write_car_data = require("../routes/car/write_data.js");
 
-const QoS0_subscriber2 = mqtt.connect(null, {clientId: 'QoS0_subscriber2'});
+const options = {
+    clientId: 'QoS0_subscriber2', 
+    connectTimeout: 600*1000,
+    // keepalive: 600
+}
+const QoS0_subscriber2 = mqtt.connect(null, options);
 
 QoS0_subscriber2.on('connect', function(){
     console.log('Subscriber2 connected to MQTT broker');
@@ -16,12 +21,12 @@ QoS0_subscriber2.on('connect', function(){
 
 QoS0_subscriber2.on('message', async function (topic, message) {
     const work = JSON.parse(message);
-    await write_car_data(work.ID, work.data);
-    QoS0_subscriber2.publish('done_carQoS0_2', 'car_QoS0_2 finish', { qos: 0 }, (error) => {
-        if (error) {
-            console.error('===== Failed to publish finish message to QoS0 =====', error);
-        } else {
-            console.log('===== Finish message published to QoS0 =====');
-        }
-    })
+    write_car_data(work.ID, work.data);
+    // QoS0_subscriber2.publish('done_carQoS0_2', 'car_QoS0_2 finish', { qos: 0 }, (error) => {
+    //     if (error) {
+    //         console.error('===== Failed to publish finish message to QoS0 =====', error);
+    //     } else {
+    //         console.log('===== Finish message published to QoS0 =====');
+    //     }
+    // })
 });

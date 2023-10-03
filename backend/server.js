@@ -55,7 +55,8 @@ app.post("/api/car/Data", async(req, res) => {
     };
     var record = {
         ID: input.ID,
-        data: data
+        data: data,
+        timestamp: input.timestamp
     };
     cnt++;
     console.log('server端: ', record);
@@ -203,44 +204,44 @@ function process_next_transaction() {
 //QoS0 for car system
 const mqttClient = mqtt.connect(null, {clientId: 'publisher'});
 
-mqttClient.on('connect', function () {
-    console.log('QoS0_publisher connected to MQTT broker');
-    mqttClient.subscribe('done_carQoS0_1', { qos: 0 }, function (error) {
-        if (error) {
-            console.error('mqttClient failed to subscribe to carQoS0_1 response topic', error);
-        } else {
-            console.log('mqttClient subscribed to carQoS0_1 response topic');
-        }
-    });
-    mqttClient.subscribe('done_carQoS0_2', { qos: 0 }, function (error) {
-        if (error) {
-            console.error('mqttClient failed to subscribe to carQoS0_2 response topic', error);
-        } else {
-            console.log('mqttClient subscribed to carQoS0_2 response topic');
-        }
-    });
-    mqttClient.subscribe('done_carQoS0_3', { qos: 0 }, function (error) {
-        if (error) {
-            console.error('mqttClient failed to subscribe to carQoS0_3 response topic', error);
-        } else {
-            console.log('mqttClient subscribed to carQoS0_3 response topic');
-        }
-    });
-    mqttClient.subscribe('done_carQoS0_4', { qos: 0 }, function (error) {
-        if (error) {
-            console.error('mqttClient failed to subscribe to carQoS0_4 response topic', error);
-        } else {
-            console.log('mqttClient subscribed to carQoS0_4 response topic');
-        }
-    });
-    mqttClient.subscribe('done_carQoS0_5', { qos: 0 }, function (error) {
-        if (error) {
-            console.error('mqttClient failed to subscribe to carQoS0_5 response topic', error);
-        } else {
-            console.log('mqttClient subscribed to carQoS0_5 response topic');
-        }
-    });
-});
+// mqttClient.on('connect', function () {
+//     console.log('QoS0_publisher connected to MQTT broker');
+//     mqttClient.subscribe('done_carQoS0_1', { qos: 0 }, function (error) {
+//         if (error) {
+//             console.error('mqttClient failed to subscribe to carQoS0_1 response topic', error);
+//         } else {
+//             console.log('mqttClient subscribed to carQoS0_1 response topic');
+//         }
+//     });
+//     mqttClient.subscribe('done_carQoS0_2', { qos: 0 }, function (error) {
+//         if (error) {
+//             console.error('mqttClient failed to subscribe to carQoS0_2 response topic', error);
+//         } else {
+//             console.log('mqttClient subscribed to carQoS0_2 response topic');
+//         }
+//     });
+//     mqttClient.subscribe('done_carQoS0_3', { qos: 0 }, function (error) {
+//         if (error) {
+//             console.error('mqttClient failed to subscribe to carQoS0_3 response topic', error);
+//         } else {
+//             console.log('mqttClient subscribed to carQoS0_3 response topic');
+//         }
+//     });
+//     mqttClient.subscribe('done_carQoS0_4', { qos: 0 }, function (error) {
+//         if (error) {
+//             console.error('mqttClient failed to subscribe to carQoS0_4 response topic', error);
+//         } else {
+//             console.log('mqttClient subscribed to carQoS0_4 response topic');
+//         }
+//     });
+//     mqttClient.subscribe('done_carQoS0_5', { qos: 0 }, function (error) {
+//         if (error) {
+//             console.error('mqttClient failed to subscribe to carQoS0_5 response topic', error);
+//         } else {
+//             console.log('mqttClient subscribed to carQoS0_5 response topic');
+//         }
+//     });
+// });
 
 let QoS0_cnt = 0;
 const QoS0_record_queue = [];
@@ -261,131 +262,145 @@ app.post("/api/car/Data/QoS0", async (req, res) => {
     QoS0_cnt++;
 
     //first time for each subscriber
-    if(QoS0_cnt == 1){
+    if(QoS0_cnt%5 == 1){
         const work = QoS0_record_queue.shift();
         mqttClient.publish('carQoS0_1', JSON.stringify(work), { qos: 0 }, (error) => {
             if (error) {
                 console.error('Failed to publish data to MQTT_1', error);
             } else {
                 res.send({
-                    ID: record.ID,
-                    data: record.data.myData
+                    ID: work.ID,
+                    data: work.data.myData,
+                    timestamp: input.timestamp
                 });
                 console.log('Data published to MQTT_1', work);
             }
         });
     }
-    else if(QoS0_cnt == 2){
+    else if(QoS0_cnt%5 == 2){
         const work = QoS0_record_queue.shift();
         mqttClient.publish('carQoS0_2', JSON.stringify(work), { qos: 0 }, (error) => {
             if (error) {
                 console.error('Failed to publish data to MQTT_2', error);
             } else {
                 res.send({
-                    ID: record.ID,
-                    data: record.data.myData
+                    ID: work.ID,
+                    data: work.data.myData,
+                    timestamp: input.timestamp
                 });
                 console.log('Data published to MQTT_2', work);
             }
         });
     }
-    else if(QoS0_cnt == 3){
+    else if(QoS0_cnt%5 == 3){
         const work = QoS0_record_queue.shift();
         mqttClient.publish('carQoS0_3', JSON.stringify(work), { qos: 0 }, (error) => {
             if (error) {
                 console.error('Failed to publish data to MQTT_3', error);
             } else {
                 res.send({
-                    ID: record.ID,
-                    data: record.data.myData
+                    ID: work.ID,
+                    data: work.data.myData,
+                    timestamp: input.timestamp
                 });
                 console.log('Data published to MQTT_3', work);
             }
         });
     }
-    else if(QoS0_cnt == 4){
+    else if(QoS0_cnt%5 == 4){
         const work = QoS0_record_queue.shift();
         mqttClient.publish('carQoS0_4', JSON.stringify(work), { qos: 0 }, (error) => {
             if (error) {
                 console.error('Failed to publish data to MQTT_4', error);
             } else {
                 res.send({
-                    ID: record.ID,
-                    data: record.data.myData
+                    ID: work.ID,
+                    data: work.data.myData,
+                    timestamp: input.timestamp
                 });
                 console.log('Data published to MQTT_4', work);
             }
         });
     }
-    else if(QoS0_cnt == 5){
+    else if(QoS0_cnt%5 == 0){
         const work = QoS0_record_queue.shift();
         mqttClient.publish('carQoS0_5', JSON.stringify(work), { qos: 0 }, (error) => {
             if (error) {
                 console.error('Failed to publish data to MQTT_5', error);
             } else {
                 res.send({
-                    ID: record.ID,
-                    data: record.data.myData
+                    ID: work.ID,
+                    data: work.data.myData,
+                    timestamp: input.timestamp
                 });
                 console.log('Data published to MQTT_5', work);
             }
         });
     }
+    // else{
+    //     const length = QoS0_record_queue.length;
+    //     if(QoS0_record_queue[length-1] === record){
+    //         res.send({
+    //             ID: record.ID,
+    //             data: record.data.myData
+    //         });
+    //     }
+    // }
 });
 
-mqttClient.on('message', async function (topic, message) {
-    if(QoS0_record_queue.length != 0){
-        const work = QoS0_record_queue.shift();
-        if (topic == 'done_carQoS0_1'){
-            mqttClient.publish('carQoS0_1', JSON.stringify(work), { qos: 0 }, (error) => {
-                if (error) {
-                    console.error('Failed to publish data to MQTT_1', error);
-                } else {
-                    console.log('Data published to MQTT_1', work);
-                }
-            });
-        }
-        else if (topic == 'done_carQoS0_2'){
-            mqttClient.publish('carQoS0_2', JSON.stringify(work), { qos: 0 }, (error) => {
-                if (error) {
-                    console.error('Failed to publish data to MQTT_2', error);
-                } else {
-                    console.log('Data published to MQTT_2', work);
-                }
-            });
-        }
-        else if (topic == 'done_carQoS0_3'){
-            mqttClient.publish('carQoS0_3', JSON.stringify(work), { qos: 0 }, (error) => {
-                if (error) {
-                    console.error('Failed to publish data to MQTT_3', error);
-                } else {
-                    console.log('Data published to MQTT_3', work);
-                }
-            });
-        }
-        else if (topic == 'done_carQoS0_4'){
-            mqttClient.publish('carQoS0_4', JSON.stringify(work), { qos: 0 }, (error) => {
-                if (error) {
-                    console.error('Failed to publish data to MQTT_4', error);
-                } else {
-                    console.log('Data published to MQTT_4', work);
-                }
-            });
-        }
-        else if (topic == 'done_carQoS0_5'){
-            mqttClient.publish('carQoS0_5', JSON.stringify(work), { qos: 0 }, (error) => {
-                if (error) {
-                    console.error('Failed to publish data to MQTT_5', error);
-                } else {
-                    console.log('Data published to MQTT_5', work);
-                }
-            });
-        }
-    }
-    else{
-        QoS0_cnt = 0;
-    }
-})
+// mqttClient.on('message', async function (topic, message) {
+//     if(QoS0_record_queue.length != 0){
+//         const work = QoS0_record_queue.shift();
+//         if (topic == 'done_carQoS0_1'){
+//             mqttClient.publish('carQoS0_1', JSON.stringify(work), { qos: 0 }, (error) => {
+//                 if (error) {
+//                     console.error('Failed to publish data to MQTT_1', error);
+//                 } else {
+//                     console.log('Data published to MQTT_1', work);
+//                 }
+//             });
+//         }
+//         else if (topic == 'done_carQoS0_2'){
+//             mqttClient.publish('carQoS0_2', JSON.stringify(work), { qos: 0 }, (error) => {
+//                 if (error) {
+//                     console.error('Failed to publish data to MQTT_2', error);
+//                 } else {
+//                     console.log('Data published to MQTT_2', work);
+//                 }
+//             });
+//         }
+//         else if (topic == 'done_carQoS0_3'){
+//             mqttClient.publish('carQoS0_3', JSON.stringify(work), { qos: 0 }, (error) => {
+//                 if (error) {
+//                     console.error('Failed to publish data to MQTT_3', error);
+//                 } else {
+//                     console.log('Data published to MQTT_3', work);
+//                 }
+//             });
+//         }
+//         else if (topic == 'done_carQoS0_4'){
+//             mqttClient.publish('carQoS0_4', JSON.stringify(work), { qos: 0 }, (error) => {
+//                 if (error) {
+//                     console.error('Failed to publish data to MQTT_4', error);
+//                 } else {
+//                     console.log('Data published to MQTT_4', work);
+//                 }
+//             });
+//         }
+//         else if (topic == 'done_carQoS0_5'){
+//             mqttClient.publish('carQoS0_5', JSON.stringify(work), { qos: 0 }, (error) => {
+//                 if (error) {
+//                     console.error('Failed to publish data to MQTT_5', error);
+//                 } else {
+//                     console.log('Data published to MQTT_5', work);
+//                 }
+//             });
+//         }
+//     }
+//     else{
+//         QoS0_cnt = 0;
+//     }
+// })
 
 //QoS1 for car system
 mqttClient.on('connect', function () {
@@ -498,8 +513,8 @@ app.post("/api/car/Data/QoS1", async(req, res) =>{
     }
 
     res.send({
-        ID: record.ID,
-        data: record.data.myData
+        ID: work.ID,
+        data: work.data.myData
     });
 });
 
