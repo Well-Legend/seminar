@@ -6,7 +6,7 @@ const kafka = new Kafka({
     clientId: 'Consumer2',
     brokers: ['localhost:9092'],
 });
-const consumer = kafka.consumer({ groupId: 'carConsumer///100///50' });
+const consumer = kafka.consumer({ groupId: 'carConsumer-100-5-5' });
 const topic = 'carSystem';
 const runConsumer = async () => {
     await consumer.connect();

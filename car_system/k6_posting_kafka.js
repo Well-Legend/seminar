@@ -6,7 +6,7 @@ export let options = {
         contacts: {
             executor: 'per-vu-iterations',
             vus: 100,
-            iterations: 50,
+            iterations: 5,
         }
     }
 };

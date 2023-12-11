@@ -43,8 +43,6 @@ app.post("/api/Data", (req, res) => {
 })
 
 //Queue for car system
-const data_queue = [];
-let processing = false;
 let cnt = 0;
 app.post("/api/car/Data", async(req, res) => {
     const input = req.body;
@@ -78,170 +76,8 @@ app.post("/api/car/Data", async(req, res) => {
     }    
 })
 
-
-
-
-
-
-
-
-
-app.post("/api/car/Data/Queue", (req, res) => {
-    const input = req.body;
-    var timestamp = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' });
-    var data = {
-        myData: input.event,
-        timestamp: timestamp
-    };
-    var record = {
-        ID: input.ID,
-        data: data
-    };
-
-    try{
-        data_queue.push(record);
-
-        if (data_queue.length > 0 && data_queue[data_queue.length - 1] === record) {
-            
-            res.send({
-                ID: data_queue[data_queue.length - 1].ID,
-                data: data_queue[data_queue.length - 1].data
-            });
-        }    
-    }catch{
-        res.status(500).send({ error: 'Failed to push record to data_queue.' });
-    }
-    
-    if (!processing) {
-        process_next_transaction();
-    }
-});
-
-app.post("/api/car/Data/Queue2", (req, res) => {
-    console.log('==============');
-    const input = req.body;
-    var timestamp = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' });
-    var data = {
-        myData: input.event,
-        timestamp: timestamp
-    };
-    var record = {
-        ID: input.ID,
-        data: data
-    };
-
-    try{
-        data_queue.push(record);
-
-        if (data_queue.length > 0 && data_queue[data_queue.length - 1] === record) {
-            
-            res.send({
-                ID: data_queue[data_queue.length - 1].ID,
-                data: data_queue[data_queue.length - 1].data
-            });
-        }    
-    }catch{
-        res.status(500).send({ error: 'Failed to push record to data_queue.' });
-    }
-    
-    if (!processing) {
-        process_next_transaction();
-    }
-});
-
-app.post("/api/car/Data/Queue3", (req, res) => {
-    console.log('==============');
-    const input = req.body;
-    var timestamp = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' });
-    var data = {
-        myData: input.event,
-        timestamp: timestamp
-    };
-    var record = {
-        ID: input.ID,
-        data: data
-    };
-
-    try{
-        data_queue.push(record);
-
-        if (data_queue.length > 0 && data_queue[data_queue.length - 1] === record) {
-            
-            res.send({
-                ID: data_queue[data_queue.length - 1].ID,
-                data: data_queue[data_queue.length - 1].data
-            });
-        }    
-    }catch{
-        res.status(500).send({ error: 'Failed to push record to data_queue.' });
-    }
-    
-    if (!processing) {
-        process_next_transaction();
-    }
-});
-function process_next_transaction() {
-    if (data_queue.length === 0 || processing) {
-        return;
-    }
-    processing = true;
-
-    // 取出下一筆資料
-    const work = data_queue.shift();
-    console.log('===這是work=== ', work);
-    write_car_data(work.ID, work.data)
-        .then(() => {
-            processing = false;
-            process_next_transaction();
-        })
-        .catch((error) => {
-            console.error('Transaction: ', work.ID, work.data, 'Failed:', error);
-            processing = false;
-            process_next_transaction();
-        });
-}
-
 //QoS0 for car system
 const mqttClient = mqtt.connect(null, {clientId: 'publisher'});
-
-// mqttClient.on('connect', function () {
-//     console.log('QoS0_publisher connected to MQTT broker');
-//     mqttClient.subscribe('done_carQoS0_1', { qos: 0 }, function (error) {
-//         if (error) {
-//             console.error('mqttClient failed to subscribe to carQoS0_1 response topic', error);
-//         } else {
-//             console.log('mqttClient subscribed to carQoS0_1 response topic');
-//         }
-//     });
-//     mqttClient.subscribe('done_carQoS0_2', { qos: 0 }, function (error) {
-//         if (error) {
-//             console.error('mqttClient failed to subscribe to carQoS0_2 response topic', error);
-//         } else {
-//             console.log('mqttClient subscribed to carQoS0_2 response topic');
-//         }
-//     });
-//     mqttClient.subscribe('done_carQoS0_3', { qos: 0 }, function (error) {
-//         if (error) {
-//             console.error('mqttClient failed to subscribe to carQoS0_3 response topic', error);
-//         } else {
-//             console.log('mqttClient subscribed to carQoS0_3 response topic');
-//         }
-//     });
-//     mqttClient.subscribe('done_carQoS0_4', { qos: 0 }, function (error) {
-//         if (error) {
-//             console.error('mqttClient failed to subscribe to carQoS0_4 response topic', error);
-//         } else {
-//             console.log('mqttClient subscribed to carQoS0_4 response topic');
-//         }
-//     });
-//     mqttClient.subscribe('done_carQoS0_5', { qos: 0 }, function (error) {
-//         if (error) {
-//             console.error('mqttClient failed to subscribe to carQoS0_5 response topic', error);
-//         } else {
-//             console.log('mqttClient subscribed to carQoS0_5 response topic');
-//         }
-//     });
-// });
 
 let QoS0_cnt = 0;
 const QoS0_record_queue = [];
@@ -261,7 +97,6 @@ app.post("/api/car/Data/QoS0", async (req, res) => {
     QoS0_record_queue.push(record);
     QoS0_cnt++;
 
-    //first time for each subscriber
     if(QoS0_cnt%5 == 1){
         const work = QoS0_record_queue.shift();
         mqttClient.publish('carQoS0_1', JSON.stringify(work), { qos: 0 }, (error) => {
@@ -337,70 +172,7 @@ app.post("/api/car/Data/QoS0", async (req, res) => {
             }
         });
     }
-    // else{
-    //     const length = QoS0_record_queue.length;
-    //     if(QoS0_record_queue[length-1] === record){
-    //         res.send({
-    //             ID: record.ID,
-    //             data: record.data.myData
-    //         });
-    //     }
-    // }
 });
-
-// mqttClient.on('message', async function (topic, message) {
-//     if(QoS0_record_queue.length != 0){
-//         const work = QoS0_record_queue.shift();
-//         if (topic == 'done_carQoS0_1'){
-//             mqttClient.publish('carQoS0_1', JSON.stringify(work), { qos: 0 }, (error) => {
-//                 if (error) {
-//                     console.error('Failed to publish data to MQTT_1', error);
-//                 } else {
-//                     console.log('Data published to MQTT_1', work);
-//                 }
-//             });
-//         }
-//         else if (topic == 'done_carQoS0_2'){
-//             mqttClient.publish('carQoS0_2', JSON.stringify(work), { qos: 0 }, (error) => {
-//                 if (error) {
-//                     console.error('Failed to publish data to MQTT_2', error);
-//                 } else {
-//                     console.log('Data published to MQTT_2', work);
-//                 }
-//             });
-//         }
-//         else if (topic == 'done_carQoS0_3'){
-//             mqttClient.publish('carQoS0_3', JSON.stringify(work), { qos: 0 }, (error) => {
-//                 if (error) {
-//                     console.error('Failed to publish data to MQTT_3', error);
-//                 } else {
-//                     console.log('Data published to MQTT_3', work);
-//                 }
-//             });
-//         }
-//         else if (topic == 'done_carQoS0_4'){
-//             mqttClient.publish('carQoS0_4', JSON.stringify(work), { qos: 0 }, (error) => {
-//                 if (error) {
-//                     console.error('Failed to publish data to MQTT_4', error);
-//                 } else {
-//                     console.log('Data published to MQTT_4', work);
-//                 }
-//             });
-//         }
-//         else if (topic == 'done_carQoS0_5'){
-//             mqttClient.publish('carQoS0_5', JSON.stringify(work), { qos: 0 }, (error) => {
-//                 if (error) {
-//                     console.error('Failed to publish data to MQTT_5', error);
-//                 } else {
-//                     console.log('Data published to MQTT_5', work);
-//                 }
-//             });
-//         }
-//     }
-//     else{
-//         QoS0_cnt = 0;
-//     }
-// })
 
 //QoS1 for car system
 mqttClient.on('connect', function () {
