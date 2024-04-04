@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-04-04T12:30:34.828Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" etag="0qfuVWKzLCgSAJil5KrG" version="24.0.1" type="github">
+<mxfile host="app.diagrams.net" modified="2024-04-04T12:41:26.536Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" etag="rzXL9JIeT1dzZoyxjF9_" version="24.0.1" type="github">
   <diagram name="第 1 页" id="gySH61aROXAip3Gngee-">
     <mxGraphModel dx="650" dy="374" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -17,7 +17,7 @@
         </mxCell>
         <mxCell id="ugaCTf1EiENJRhi7maTh-3" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="440" y="226" as="sourcePoint" />
+            <mxPoint x="490" y="226" as="sourcePoint" />
             <mxPoint x="520" y="225.92000000000002" as="targetPoint" />
           </mxGeometry>
         </mxCell>
@@ -34,18 +34,18 @@
           <mxGeometry x="317.09" y="50" width="112.91" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ugaCTf1EiENJRhi7maTh-8" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#99CCFF;container=0;gradientColor=#CCE5FF;shadow=1;textShadow=1;glass=0;" vertex="1" parent="1">
-          <mxGeometry x="160" y="160" width="270" height="130" as="geometry" />
+          <mxGeometry x="160" y="160" width="320" height="130" as="geometry" />
         </mxCell>
         <mxCell id="ugaCTf1EiENJRhi7maTh-39" value="Buffering" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;container=0;fontFamily=Times New Roman;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="170" y="166.4" width="50.61" height="20" as="geometry" />
         </mxCell>
         <mxCell id="ugaCTf1EiENJRhi7maTh-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.321;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="240" y="224.83999999999997" as="sourcePoint" />
-            <mxPoint x="265.2994707297514" y="224.84059453032103" as="targetPoint" />
+            <mxPoint x="254.7" y="224.7" as="sourcePoint" />
+            <mxPoint x="279.9994707297514" y="224.70059453032104" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="260.23" y="224.98" />
-              <mxPoint x="260.23" y="224.98" />
+              <mxPoint x="274.93" y="224.84" />
+              <mxPoint x="274.93" y="224.84" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -61,26 +61,26 @@
           <mxGeometry x="560" y="173.59" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="ugaCTf1EiENJRhi7maTh-53" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;Blockchain Network&lt;/font&gt;" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Times New Roman;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="550" y="440" width="160" height="30" as="geometry" />
+          <mxGeometry x="400" y="350" width="160" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="ugaCTf1EiENJRhi7maTh-54" value="&lt;font style=&quot;font-size: 10px;&quot; face=&quot;Times New Roman&quot;&gt;&lt;b&gt;Producer&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;gradientColor=#CCE5FF;fillColor=#3399FF;shadow=0;textShadow=0;" vertex="1" parent="1">
-          <mxGeometry x="179.99999999999997" y="207.19" width="49.77" height="33.6" as="geometry" />
-        </mxCell>
-        <mxCell id="ugaCTf1EiENJRhi7maTh-56" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 10px;&quot;&gt;Broker&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;gradientColor=#CCE5FF;fillColor=#3399FF;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="270.7" y="208.2" width="49.77" height="33.6" as="geometry" />
-        </mxCell>
-        <mxCell id="ugaCTf1EiENJRhi7maTh-57" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 10px;&quot;&gt;Consumers&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;gradientColor=#CCE5FF;fillColor=#3399FF;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="360" y="208.2" width="49.77" height="33.6" as="geometry" />
+        <mxCell id="ugaCTf1EiENJRhi7maTh-57" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 12px;&quot;&gt;Consumers&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;gradientColor=#CCE5FF;fillColor=#3399FF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="390" y="206" width="69.77" height="40.79" as="geometry" />
         </mxCell>
         <mxCell id="ugaCTf1EiENJRhi7maTh-58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.321;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="329.81" y="224.86999999999998" as="sourcePoint" />
-            <mxPoint x="355.1094707297514" y="224.87059453032103" as="targetPoint" />
+            <mxPoint x="360.9" y="226.03999999999996" as="sourcePoint" />
+            <mxPoint x="386.1994707297514" y="226.04059453032102" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="350.04" y="225.01" />
-              <mxPoint x="350.04" y="225.01" />
+              <mxPoint x="381.13" y="226.17999999999998" />
+              <mxPoint x="381.13" y="226.17999999999998" />
             </Array>
           </mxGeometry>
+        </mxCell>
+        <mxCell id="ugaCTf1EiENJRhi7maTh-59" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 12px;&quot;&gt;Broker&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;gradientColor=#CCE5FF;fillColor=#3399FF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="285.12" y="206" width="69.77" height="40.79" as="geometry" />
+        </mxCell>
+        <mxCell id="ugaCTf1EiENJRhi7maTh-60" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 12px;&quot;&gt;Producer&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;gradientColor=#CCE5FF;fillColor=#3399FF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="180" y="206" width="69.77" height="40.79" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
