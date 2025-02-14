@@ -1,55 +1,21 @@
-# BlockChain
-## Required Dependency and Installation
+## Intro
+The project evaluates the performance of two different buffering architectures—volatile buffering (MQTT) and persistent buffering (Kafka)—in blockchain gateways.
 
-* make, nodejs, npm
-```c
-sudo apt install make nodejs npm
-```
+## Architechture
+* volatile buffering (MQTT)
+![Transaction Efficiency Comparison](experimental_result/MQTT架構.jpg)
 
-* geth
-   * [Go-ethereum](https://geth.ethereum.org/)
+* persistent buffering (Kafka)
+![Transaction Efficiency Comparison](experimental_result/Kafka架構.jpg)
 
-* web3
-```javascript
-npm install web3
-```
+## Experimental Setup
+Our study analyzes the transaction efficiency under different buffering mechanisms:
 
-## Geth
-### Command Introduce
-1. Initial private chain
+1. Varying the number of requests per user (10 to 100 requests per user).
+2. Varying the number of concurrent users (1 to 80 users).
+3. Measuring the average transaction time and standard deviation.
 
-```go
-geth --datadir ./data init genesis.json
-```
-
-
-   * ./data is a directory where your block data stored.
-   * genesis.json is the information of your first block
-
-2. Start your private chain
-
-```go
-geth --datadir node/private-chain-node2  --allow-insecure-unlock --nodiscover --syncmode full --networkid 100 --port 30303 --http --http.port 8545 --http.api "eth,net,web3,personal" --unlock c5f7f02e4833f2d8fdda9cd51e720793583b5a7a --password /home/well1314/node/private-chain-node2/password.txt console
-```
-
-3. Migrate contract
-
-```javascript
-node index.js
-```
-
-> If you haven't have private chain yet, you can use the command **puppeth** to *construct the private chain*.
-
-#Test Environment
-## K6
-1. Installation
-
-```c
-sudo gpg -k
-sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
-echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
-sudo apt-get update
-sudo apt-get install k6
-```
-
-
+## Key Findings
+* **Kafka (Persistent Buffering):** Higher stability and efficiency under high transaction loads.
+* **MQTT (Volatile Buffering):** Faster access speed in low-load environments but lacks scalability.
+* **Scalability Considerations:** Kafka remains stable even when increasing the number of users, while MQTT performance degrades.
